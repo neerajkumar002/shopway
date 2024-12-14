@@ -1,3 +1,4 @@
+import Footer from "./Footer";
 import Navbar from "./Navbar";
 
 const HomeLayout = () => {
@@ -8,6 +9,7 @@ const HomeLayout = () => {
       {/* mina */}
       <main>main</main>
       {/* footer */}
+      <Footer />
     </div>
   );
 };
