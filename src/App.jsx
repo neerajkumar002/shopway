@@ -1,5 +1,14 @@
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import HomeLayout from "./components/Layout";
+
 function App() {
-  return <>shopway</>;
+  return (
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<HomeLayout />} />
+      </Routes>
+    </BrowserRouter>
+  );
 }
 
 export default App;
