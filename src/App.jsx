@@ -1,11 +1,5 @@
- 
-function App() { 
-
-  return (
-  <>
-  shopway
-  </>
-  )
+function App() {
+  return <>shopway</>;
 }
 
-export default App
+export default App;
