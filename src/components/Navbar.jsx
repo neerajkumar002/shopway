@@ -25,7 +25,7 @@ const Navbar = () => {
       </div>
       <div className="hidden sm:flex gap-4 text-xl font-semibold ">
         <NavLink to="login">Log In</NavLink>
-        <NavLink>Sign Up</NavLink>
+        <NavLink to="signup">Sign Up</NavLink>
         <NavLink className="flex gap-2">
           <ShoppingBag />
         </NavLink>
