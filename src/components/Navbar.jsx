@@ -10,10 +10,10 @@ const Navbar = () => {
       <div className="hidden sm:block">
         <ul className="flex gap-4 text-xl font-semibold">
           <li>
-            <Link>Home</Link>{" "}
+            <Link to="/">Home</Link>{" "}
           </li>
           <li>
-            <Link>Product</Link>{" "}
+            <Link to="products">Product</Link>{" "}
           </li>
           <li>
             <Link>Contact</Link>{" "}
