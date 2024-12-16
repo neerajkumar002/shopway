@@ -3,7 +3,7 @@ import { Link, NavLink } from "react-router-dom";
 
 const Navbar = () => {
   return (
-    <nav className="w-full flex justify-between px-9 sm:justify-around items-center py-8  ">
+    <nav className="w-full  flex items-center justify-between px-5 py-4 ">
       <div>
         <h3 className="text-4xl font-bold tracking-tighter italic">ShopWay</h3>
       </div>

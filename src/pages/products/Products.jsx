@@ -20,23 +20,23 @@ const Products = () => {
   console.log(productsData);
 
   return (
-    <div className="sm:px-60 flex gap-2 flex-col sm:flex-row">
+    <div className="lg:flex ">
       <Filter />
       <div className="w-full">
-        <div className="flex justify-between px-2 py-5 items-center">
-          <div>Showing {productsData.length} Products</div>
-          <div className="flex gap-2 border p-1">
-            <p className="text-gray-400 flex gap-1" >
+        <div className="flex justify-between px-3 py-5 items-center">
+          <p className="text-sm xl:text-xl">Showing {productsData.length} Products</p>
+          <div className="flex  gap-1 border p-1">
+            <p className="text-gray-400 flex items-center tracking-tighter gap-1">
               <SortAsc />
               Sort by :
             </p>
-            <select className="outline-none font-semibold">
+            <select className="text-sm outline-none tracking-tighter font-semibold">
               <option value="">Price: Low To High</option>
               <option value="">Price: High To Low</option>
             </select>
           </div>
         </div>
-        <div className="w-full grid  grid-cols-2 sm:grid-cols-4 sm:gap-5">
+        <div className="w-full px-5 grid items-center gap-3 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 ">
           {/* card */}
 
           {productsData &&
@@ -44,6 +44,7 @@ const Products = () => {
             productsData.map((item) => (
               <ProductCard
                 key={item.id}
+                id={item.id}
                 thumbnail={item.thumbnail}
                 title={item.title}
                 price={item.price}

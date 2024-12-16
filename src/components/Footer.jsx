@@ -2,8 +2,8 @@ import { Copyright, Facebook, Github, Instagram, Twitter } from "lucide-react";
 
 const Footer = () => {
   return (
-    <footer className="w-full flex flex-col sm:px-60  sm:pt-8   ">
-      <div className="flex flex-col gap-4 px-10 sm:px-1 sm:flex-row sm:justify-between ">
+    <footer className="px-1 py-10 px-2  ">
+      <div className="flex flex-col gap-4   sm:px-1 sm:flex-row sm:justify-between ">
         <div className="w-[200px] flex  flex-col gap-3">
           <h3 className="text-xl font-bold ">ShopWay</h3>
           <p>
@@ -28,7 +28,7 @@ const Footer = () => {
           </ul>
         </div>
       </div>
-      <div className="text-center w-full ">
+      <div className="  w-full ">
         <p className="flex items-center justify-center gap-1 font-semibold text-sm   ">
           <Copyright size={15} /> ShopWay. All rights reserved.
         </p>
