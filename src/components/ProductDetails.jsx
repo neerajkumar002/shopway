@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { BadgeInfo, CornerDownLeft, Star, Truck, Undo2 } from "lucide-react";
+import { BadgeInfo, CornerDownLeft, Star, Truck,   } from "lucide-react";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 
@@ -7,6 +7,7 @@ const ProductDetails = () => {
   const [productDetails, setProductDetails] = useState({});
   const [productImages, setProductImages] = useState([]);
   const [productReviews, setProductReviews] = useState([]);
+  const [imageIndex, setImageIndex] = useState(0);
   const { id } = useParams();
 
   useEffect(() => {
@@ -30,12 +31,20 @@ const ProductDetails = () => {
         {/* product image */}
         <div className=" px-2">
           <div className="w-full h-[400px] md:w-[400px] lg:w-[500px] lg:h-[500px]">
-            <img src={productImages[0]} alt="" className="w-full h-full" />
+            <img
+              src={productImages[imageIndex]}
+              alt=""
+              className="w-full h-full"
+            />
           </div>
           <div className="flex gap-5 ">
             {productImages.length > 0 &&
-              productImages.map((image) => (
-                <div className="w-[100px] h-[100px] border" key={image}>
+              productImages.map((image, index) => (
+                <div
+                  className={`w-[100px] h-[100px]   ${imageIndex === index ? "border-2" : ""} cursor-pointer`}
+                  key={image}
+                  onClick={() => setImageIndex(index)}
+                >
                   <img src={image} alt="" className="w-full h-full" />
                 </div>
               ))}
