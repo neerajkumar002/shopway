@@ -15,7 +15,7 @@ export const getProductsData = createAsyncThunk("/products/get", async () => {
       `${conf.backend_api_url}/admin/products/get`,
     );
     console.log(response);
-    return response;
+    return response.data;
   } catch (error) {
     console.log(error.message);
   }
