@@ -2,7 +2,7 @@ import { Copyright, Facebook, Github, Instagram, Twitter } from "lucide-react";
 
 const Footer = () => {
   return (
-    <footer className="px-1 py-10 px-2  ">
+    <footer className="px-3 py-10   ">
       <div className="flex flex-col gap-4   sm:px-1 sm:flex-row sm:justify-between ">
         <div className="w-[200px] flex  flex-col gap-3">
           <h3 className="text-xl font-bold ">ShopWay</h3>
