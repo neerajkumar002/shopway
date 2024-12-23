@@ -22,7 +22,7 @@ const ProductListing = () => {
       <div className="w-full">
         <div className="flex justify-between px-3 py-5 items-center">
           <p className="text-sm xl:text-xl">
-            Showing {productsData.length} Products
+            Showing {productList && productList.length} Products
           </p>
           <div className="flex  gap-1 border p-1">
             <p className="text-gray-400 flex items-center tracking-tighter gap-1">
