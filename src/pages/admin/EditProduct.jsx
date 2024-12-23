@@ -1,14 +1,38 @@
+import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useParams } from "react-router-dom";
+import { getProductById } from "../../store/products/product-slice";
+
 const EditProduct = () => {
+  const [title, setTitle] = useState("");
+  const [description, setDescription] = useState("");
+  const [price, setPrice] = useState("");
+  const [stock, setStock] = useState("");
+  const [category, setCategory] = useState("");
+  const [image, setImage] = useState("");
+  const { id } = useParams();
+  const dispatch = useDispatch();
+  const { productDetails } = useSelector((state) => state.products);
+  console.log(productDetails);
+  useEffect(() => {
+    dispatch(getProductById(id));
+    if (productDetails) {
+      setTitle(productDetails.title);
+      setDescription(productDetails.description);
+      setPrice(productDetails.price);
+      setStock(productDetails.stock);
+      setCategory(productDetails.category);
+      setImage(productDetails.productImage);
+    }
+  }, [id, productDetails]);
+
   return (
     <div className="flex justify-around">
       <div className="w-[600px] flex flex-col items-center bg-white ">
         <div className="w-[500px]  h-[300px]">
-          <img
-            src="https://images.unsplash.com/photo-1496957961599-e35b69ef5d7c?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTJ8fGhlYWRwaG9uZXxlbnwwfHwwfHx8MA%3D%3D"
-            alt=""
-            className="h-full w-full"
-          />
+          <img src={image} alt="" className="h-full w-full" />
         </div>
+
 
         <form className="flex flex-col gap-4 w-full px-12 py-2 ">
           <div>
@@ -16,13 +40,17 @@ const EditProduct = () => {
               type="text"
               placeholder="Title"
               className="w-full border-b-2 outline-none px-1 py-3 text-xl"
+              value={title}
+              onChange={(e) => setTitle(e.target.value)}
             />
           </div>
           <div>
-            <input
+            <textarea
               type="text"
               placeholder="Description"
               className="w-full border-b-2 outline-none px-1 py-3 text-xl"
+              value={description}
+              onChange={(e) => setDescription(e.target.value)}
             />
           </div>
           <div>
@@ -30,6 +58,8 @@ const EditProduct = () => {
               type="number"
               placeholder="Price"
               className="w-full border-b-2 outline-none px-1 py-3 text-xl"
+              value={price}
+              onChange={(e) => setPrice(e.target.value)}
             />
           </div>
           <div>
@@ -37,6 +67,8 @@ const EditProduct = () => {
               type="number"
               placeholder="Stock"
               className="w-full border-b-2 outline-none px-1 py-3 text-xl"
+              value={stock}
+              onChange={(e) => setStock(e.target.value)}
             />
           </div>
           <div>
@@ -44,6 +76,8 @@ const EditProduct = () => {
               type="text"
               placeholder="Category"
               className="w-full border-b-2 outline-none px-1 py-3 text-xl"
+              value={category}
+              onChange={(e) => setCategory(e.target.value)}
             />
           </div>
           <div>
@@ -55,34 +89,32 @@ const EditProduct = () => {
       <div className="bg-white shadow-lg w-[400px] px-2 py-3 rounded-md">
         <h4 className="font-bold text-2xl  ">Products Details</h4>
 
-        <p className="py-2">Product Id: 67630205f5ea16a24b674770</p>
+        <p className="py-2">Product Id: {productDetails?._id}</p>
         <img
-          src="https://images.unsplash.com/photo-1496957961599-e35b69ef5d7c?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTJ8fGhlYWRwaG9uZXxlbnwwfHwwfHx8MA%3D%3D"
+          src={productDetails?.productImage}
           alt=""
+          className="h-[300px] w-full"
         />
         <div className="flex flex-col gap-2 py-4  ">
           <div className="">
             <p className="text-sm font-bold">Title: </p>
-            <p> Headphone</p>
+            <p> {productDetails?.title}</p>
           </div>
           <div className="">
             <p className="text-sm font-bold">Description: </p>
-            <p className=" ">
-              Lorem ipsum dolor sit, amet consectetur adipisicing elit. Maiores
-              alias voluptas et expedita assumenda. Nobis!
-            </p>
+            <p className=" ">{productDetails?.description}</p>
           </div>
           <div className="">
             <p className="text-sm font-bold">Price: </p>
-            <p> $10</p>
+            <p> ${productDetails?.price}</p>
           </div>
           <div className="">
             <p className="text-sm font-bold">Stock: </p>
-            <p> Headphone</p>
+            <p> {productDetails?.stock}</p>
           </div>
           <div className="">
             <p className="text-sm font-bold">Category: </p>
-            <p> Headphone</p>
+            <p> {productDetails?.category}</p>
           </div>
         </div>
       </div>
