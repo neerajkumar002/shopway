@@ -1,7 +1,40 @@
 import { ArrowLeft } from "lucide-react";
+import { useState } from "react";
+import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
+import { toast, ToastContainer } from "react-toastify";
+import { registerUser } from "../../store/auth-slice";
 
 const Signup = () => {
+  const [formData, setFormData] = useState({
+    username: "",
+    email: "",
+    password: "",
+  });
+  const dispatch = useDispatch();
+
+  const errorNotify = (message) => toast.error(message);
+  const successNotify = (message) => toast.success(message);
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    if (
+      formData.username === "" ||
+      formData.email === "" ||
+      formData.password === ""
+    ) {
+      errorNotify("Please Fill All the fields!");
+    } else {
+      dispatch(registerUser(formData)).then((data) => {
+        if (data.payload.success === true) {
+          successNotify(data.payload.message);
+        } else {
+          errorNotify(data.payload.message);
+        }
+      });
+    }
+  };
+
   return (
     <div className="w-full min-h-screen flex  justify-center items-center relative">
       <Link
@@ -12,12 +45,19 @@ const Signup = () => {
       </Link>
       <div className="bg-white shadow-lg w-[400px]  sm:w-[500px]  py-8 rounded-lg ">
         <h3 className="text-3xl text-center border-b-2 py-3">Signup</h3>
-        <form className="flex flex-col gap-4 w-full px-12 py-2 ">
+        <form
+          onSubmit={handleSubmit}
+          className="flex flex-col gap-4 w-full px-12 py-2 "
+        >
           <div>
             <input
               type="text"
-              placeholder="Full Name"
+              placeholder="Username"
               className="w-full border-b-2 outline-none px-1 py-3 text-xl"
+              value={formData.username}
+              onChange={(e) =>
+                setFormData({ ...formData, username: e.target.value })
+              }
             />
           </div>
           <div>
@@ -25,6 +65,10 @@ const Signup = () => {
               type="email"
               placeholder="Email"
               className="w-full border-b-2 outline-none px-1 py-3 text-xl"
+              value={formData.email}
+              onChange={(e) =>
+                setFormData({ ...formData, email: e.target.value })
+              }
             />
           </div>
           <div>
@@ -32,12 +76,17 @@ const Signup = () => {
               type="password"
               placeholder="Password"
               className="w-full border-b-2 outline-none px-1 py-3 text-xl"
+              value={formData.password}
+              onChange={(e) =>
+                setFormData({ ...formData, password: e.target.value })
+              }
             />
           </div>
           <div>
             <button className="w-full bg-gray-400 font-bold py-2">
               Signup
             </button>
+            <ToastContainer />
           </div>
         </form>
         <div className="py-4">
