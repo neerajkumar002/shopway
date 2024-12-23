@@ -3,11 +3,14 @@ import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { addProduct } from "../../store/products/product-slice";
 import { useForm } from "react-hook-form";
+import { toast, ToastContainer } from "react-toastify";
 
 const AddProduct = () => {
   const [productImage, setProductImage] = useState("");
   const dispatch = useDispatch();
   const { register, handleSubmit } = useForm();
+
+  const successToast = (message) => toast.success(message);
 
   const onSubmit = async (data) => {
     try {
@@ -21,7 +24,11 @@ const AddProduct = () => {
       if (data.file[0]) formData.append("productImage", data.file[0]);
 
       console.log(formData);
-      dispatch(addProduct(formData));
+      dispatch(addProduct(formData)).then((data) => {
+        if (data.payload.success === true) {
+          successToast(data.payload.message);
+        }
+      });
     } catch (error) {
       console.log(error);
     }
@@ -115,6 +122,7 @@ const AddProduct = () => {
             <button className="w-full bg-gray-400 font-bold py-2">Save</button>
           </div>
         </form>
+        <ToastContainer />
       </div>
     </div>
   );
