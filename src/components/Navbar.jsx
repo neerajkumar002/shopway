@@ -23,10 +23,10 @@ const Navbar = () => {
           </li>
         </ul>
       </div>
-      <div className="hidden sm:flex gap-4 text-xl font-semibold ">
+      <div className="hidden lg:flex items-center gap-4 text-xl font-semibold ">
         <NavLink to="login">Log In</NavLink>
         <NavLink to="signup">Sign Up</NavLink>
-        <NavLink className="flex gap-2">
+        <NavLink className=" gap-2">
           <ShoppingBag />
         </NavLink>
       </div>
