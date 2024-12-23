@@ -26,7 +26,8 @@ export const getAdminProductsList = createAsyncThunk(
       const response = await axios.get(
         "http://localhost:8000/api/admin/products/get",
       );
-      return response;
+
+      return response.data;
     } catch (error) {
       console.log(error);
     }
@@ -37,14 +38,13 @@ export const getAdminProductsList = createAsyncThunk(
 export const addProduct = createAsyncThunk(
   "/products/add",
   async (formData) => {
-    console.log(formData.productImage);
     try {
-      const result = await axios.post(
+      const response = await axios.post(
         "http://localhost:8000/api/admin/products/add",
         formData,
       );
-      console.log(result);
-      return result;
+
+      return response?.data;
     } catch (error) {
       console.log(error.message);
     }
@@ -88,7 +88,7 @@ const productsSlice = createSlice({
       })
       .addCase(getAdminProductsList.rejected, (state, action) => {
         state.isLoading = true;
-        state.productList = [];
+        // state.productList = [];
       });
   },
 });
