@@ -1,24 +1,20 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { SortAsc } from "lucide-react";
 import Filter from "../../components/Filter";
 import ProductCard from "../../components/ProductCard";
 import { useEffect, useState } from "react";
 import ProductShimmer from "../../components/ProductShimmer";
+import { useDispatch, useSelector } from "react-redux";
+import { getProductsData } from "../../store/products/product-slice";
 
 const ProductListing = () => {
   const [productsData, setProductsData] = useState([]);
+  const dispatch = useDispatch();
+  const { productList } = useSelector((state) => state.products);
+  console.log(productList);
   useEffect(() => {
-    async function fetchData() {
-      const response = await fetch("https://dummyjson.com/products");
-      const result = await response.json();
-      if (result) {
-        console.log(result.products);
-        setProductsData(result.products);
-      }
-    }
-    fetchData();
-  }, []);
-
-  console.log(productsData);
+    dispatch(getProductsData());
+  }, [dispatch]);
 
   return (
     <div className="lg:flex ">
@@ -40,23 +36,23 @@ const ProductListing = () => {
           </div>
         </div>
 
-        {productsData.length === 0 ? (
+        {productList.length === 0 ? (
           <ProductShimmer />
         ) : (
           <div className="w-full px-5 grid items-center gap-3 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 ">
             {/* card */}
 
-            {productsData &&
-              productsData.length > 0 &&
-              productsData.map((item) => (
+            {productList &&
+              productList.length > 0 &&
+              productList.map((item) => (
                 <ProductCard
-                  key={item.id}
-                  id={item.id}
-                  thumbnail={item.thumbnail}
+                  key={item._id}
+                  id={item._id}
+                  productImage={item.productImage}
                   title={item.title}
                   price={item.price}
-                  disPercentage={item.discountPercentage}
-                  reviews={item.reviews}
+                  // disPercentage={item.discountPercentage}
+                  // reviews={item.reviews}
                 />
               ))}
           </div>
