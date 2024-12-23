@@ -25,14 +25,14 @@ const ProductCard = ({
         </div>
 
         <p>
-          $71 <span className="text-gray-400">$500</span>{" "}
+          ${price} <span className="text-gray-400">${price * 5}</span>{" "}
           <span className="font-semibold text-red-600 tracking-tighter">
             50% off
           </span>
         </p>
       </div>
       <div className="px-2 py-1">
-        <button className="w-full  py-2 rounded-md bg-red-400 text-white   hover:bg-red-600  font-semibold   transition-all">
+        <button className="w-full  py-2 rounded-md  bg-[#DAE9FD] text-[#2978E1]    hover:bg-[#2978E1]  hover:text-white font-semibold   transition-all">
           Add To Cart
         </button>
       </div>
