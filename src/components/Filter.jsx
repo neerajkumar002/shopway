@@ -106,10 +106,11 @@ const Filter = () => {
           Clear filters
         </button>
       </div>
-      <div className="flex flex-col gap-2 mt-10">
-        <h3 className="font-semibold text-xl">Categories</h3>
+      {/* category */}
+      <div className="flex flex-col gap-2 mt-10   bg-gray-200 border">
+        <h3 className="font-semibold  pl-2 pt-2">Categories</h3>
         <div>
-          <select className="w-full px-1 py-2">
+          <select className="w-full px-1 py-2 outline-none">
             <option value="">Category</option>
             {categories.map((category) => (
               <option key={category.slug}>{category.name}</option>
@@ -117,25 +118,13 @@ const Filter = () => {
           </select>
         </div>
       </div>
-      <div className=" flex flex-col gap-2 mt-10">
-        <h3 className="font-semibold text-xl">Price </h3>
-        <div className="flex flex-col gap-1">
-          <label htmlFor="">
-            <input type="checkbox" className="mr-2" />
-            Less than $10 . (645)
-          </label>
-          <label htmlFor="">
-            <input type="checkbox" className="mr-2" />
-            $10 to $20 (461)
-          </label>
-          <label htmlFor="">
-            <input type="checkbox" className="mr-2" />
-            $20 to $50 (30)
-          </label>
-          <label htmlFor="">
-            <input type="checkbox" className="mr-2" />
-            $50 & Above (24)
-          </label>
+
+      {/* price range */}
+      <div className=" flex flex-col gap-2 mt-10 bg-gray-200 border">
+        <h3 className="font-semibold pl-2 pt-2">Price </h3>
+        <div className="flex   gap-1 bg-white px-2 py-3 items-center">
+          <input type="range" min={1000} max={5000} className="w-full" />
+          <span>5000</span>
         </div>
       </div>
     </div>
