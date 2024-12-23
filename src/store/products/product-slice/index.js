@@ -1,5 +1,7 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
+import { conf } from "../../../config/conf";
+("../../../config/conf");
 
 const initialState = {
   isLoading: false,
@@ -10,7 +12,7 @@ const initialState = {
 export const getProductsData = createAsyncThunk("/products/get", async () => {
   try {
     const response = await axios.get(
-      "http://localhost:8000/api/admin/products/get",
+      `${conf.backend_api_url}/admin/products/get`,
     );
     console.log(response);
     return response;
@@ -24,7 +26,7 @@ export const getAdminProductsList = createAsyncThunk(
   async () => {
     try {
       const response = await axios.get(
-        "http://localhost:8000/api/admin/products/get",
+        `${conf.backend_api_url}/admin/products/get`,
       );
 
       return response.data;
@@ -40,13 +42,44 @@ export const addProduct = createAsyncThunk(
   async (formData) => {
     try {
       const response = await axios.post(
-        "http://localhost:8000/api/admin/products/add",
+        `${conf.backend_api_url}/admin/products/add`,
         formData,
       );
 
       return response?.data;
     } catch (error) {
       console.log(error.message);
+    }
+  },
+);
+
+//get product by id
+export const getProductById = createAsyncThunk("/products/id", async (id) => {
+  try {
+    const response = await axios.get(
+      `${conf.backend_api_url}/admin/products/${id}`,
+    );
+
+    return response.data;
+  } catch (error) {
+    console.log(error);
+  }
+});
+
+//Delete product by id
+export const deleteProductById = createAsyncThunk(
+  "/products/delete",
+  async (id) => {
+    console.log(`${conf.backend_api_url}/admin/products/${id}`);
+    try {
+      const response = await axios.delete(
+        `${conf.backend_api_url}/admin/products/${id}`,
+      );
+      console.log(response.data);
+
+      return response.data;
+    } catch (error) {
+      console.log(error);
     }
   },
 );
@@ -88,7 +121,27 @@ const productsSlice = createSlice({
       })
       .addCase(getAdminProductsList.rejected, (state, action) => {
         state.isLoading = true;
-        // state.productList = [];
+        state.productList = [];
+      })
+      .addCase(getProductById.pending, (state, action) => {
+        state.isLoading = true;
+      })
+      .addCase(getProductById.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.productDetails = action.payload.product;
+      })
+      .addCase(getProductById.rejected, (state, action) => {
+        state.isLoading = true;
+        state.productDetails = [];
+      })
+      .addCase(deleteProductById.pending, (state, action) => {
+        state.isLoading = true;
+      })
+      .addCase(deleteProductById.fulfilled, (state, action) => {
+        state.isLoading = false;
+      })
+      .addCase(deleteProductById.rejected, (state, action) => {
+        state.isLoading = true;
       });
   },
 });
