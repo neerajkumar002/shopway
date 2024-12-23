@@ -3,16 +3,16 @@ import { Link } from "react-router-dom";
 
 const ProductCard = ({
   id,
-  thumbnail,
+  productImage,
   title,
   price,
-  disPercentage,
-  reviews,
+  // disPercentage,
+  // reviews,
 }) => {
   return (
     <div className="w-full  border bg-white   rounded-md py-3">
       <Link to={`/products/${id}`} className="w-full h-[250px]">
-        <img src={thumbnail} alt={title} className="w-full h-full" />
+        <img src={productImage} alt={title} className="w-full h-full" />
       </Link>
       <div className="flex flex-col items-center gap-2">
         <h3 className="text-sm font-semibold tracking-tighter">{title}</h3>
