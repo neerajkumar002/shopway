@@ -19,6 +19,20 @@ export const getProductsData = createAsyncThunk("/products/get", async () => {
   }
 });
 
+export const getAdminProductsList = createAsyncThunk(
+  "/products/list",
+  async () => {
+    try {
+      const response = await axios.get(
+        "http://localhost:8000/api/admin/products/get",
+      );
+      return response;
+    } catch (error) {
+      console.log(error);
+    }
+  },
+);
+
 //add product
 export const addProduct = createAsyncThunk(
   "/products/add",
@@ -64,6 +78,17 @@ const productsSlice = createSlice({
       .addCase(addProduct.rejected, (state, action) => {
         state.isLoading = true;
         state.productDetails = null;
+      })
+      .addCase(getAdminProductsList.pending, (state, action) => {
+        state.isLoading = true;
+      })
+      .addCase(getAdminProductsList.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.productList = action.payload.data;
+      })
+      .addCase(getAdminProductsList.rejected, (state, action) => {
+        state.isLoading = true;
+        state.productList = [];
       });
   },
 });
