@@ -8,17 +8,64 @@ import { useDispatch, useSelector } from "react-redux";
 import { getProductsData } from "../../store/products/product-slice";
 
 const ProductListing = () => {
-  const [productsData, setProductsData] = useState([]);
-  const dispatch = useDispatch();
   const { productList } = useSelector((state) => state.products);
-  console.log(productList);
+  const [productsData, setProductsData] = useState([]);
+  const [selectedOption, setSelectedOption] = useState("");
+  const [priceRange, setPriceRange] = useState(1000);
+  const [sortOption, setSortOption] = useState("");
+  const dispatch = useDispatch();
+
+  function filterByProductCategory(category, priceRange) {
+    let filteredProductsList = productList.filter(
+      (item) =>
+        (category === "" ||
+          item.category.toLowerCase() === category.toLowerCase()) &&
+        item.price <= priceRange,
+    );
+    setProductsData(filteredProductsList);
+  }
+  // clear filter
+  function clearFilter() {
+    setSelectedOption("");
+    setPriceRange(1000);
+  }
+
+  //sorting by price
+  useEffect(() => {
+    function sortByPrice(sortValue) {
+      let products = [...productList];
+      if (sortValue === "asc") {
+        products.sort((nextItem, preItem) => nextItem.price - preItem.price);
+        setProductsData(products);
+      } else if (sortValue === "des") {
+        products.sort((nextItem, preItem) => preItem.price - nextItem.price);
+        setProductsData(products);
+      }
+    }
+    sortByPrice(sortOption);
+  }, [sortOption]);
+
+  useEffect(() => {
+    setProductsData(productList);
+  }, [productList]);
+
+  useEffect(() => {
+    filterByProductCategory(selectedOption, priceRange);
+  }, [selectedOption, priceRange]);
+
   useEffect(() => {
     dispatch(getProductsData());
   }, [dispatch]);
 
   return (
     <div className="lg:flex ">
-      <Filter />
+      <Filter
+        setSelectedOption={setSelectedOption}
+        selectedOption={selectedOption}
+        setPriceRange={setPriceRange}
+        priceRange={priceRange}
+        clearFilter={clearFilter}
+      />
       <div className="w-full">
         <div className="flex justify-between px-3 py-5 items-center">
           <p className="text-sm xl:text-xl">
@@ -29,9 +76,14 @@ const ProductListing = () => {
               <SortAsc />
               Sort by :
             </p>
-            <select className="text-sm outline-none tracking-tighter font-semibold">
-              <option value="">Price: Low To High</option>
-              <option value="">Price: High To Low</option>
+            <select
+              value={sortOption}
+              onChange={(e) => setSortOption(e.target.value)}
+              className="text-sm outline-none tracking-tighter font-semibold"
+            >
+              <option value="">Select Sorting Option</option>
+              <option value="asc">Price: Low To High</option>
+              <option value="des">Price: High To Low</option>
             </select>
           </div>
         </div>
@@ -42,9 +94,9 @@ const ProductListing = () => {
           <div className="w-full px-5 grid items-center gap-3 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 ">
             {/* card */}
 
-            {productList &&
-              productList.length > 0 &&
-              productList.map((item) => (
+            {productsData &&
+              productsData.length > 0 &&
+              productsData.map((item) => (
                 <ProductCard
                   key={item._id}
                   id={item._id}
