@@ -10,9 +10,11 @@ const ProductCard = ({
   // reviews,
 }) => {
   return (
-    <div className="w-full  border bg-white   rounded-md py-3">
-      <Link to={`/products/${id}`} className="w-full h-[250px]">
-        <img src={productImage} alt={title} className="w-full h-full" />
+    <div className="w-full border bg-white rounded-md py-3 ">
+      <Link to={`/products/${id}`}>
+        <div className="w-full h-[300px]">
+          <img src={productImage} alt={title} className="w-full h-full" />
+        </div>
       </Link>
       <div className="flex flex-col items-center gap-2">
         <h3 className="text-sm font-semibold tracking-tighter">{title}</h3>
